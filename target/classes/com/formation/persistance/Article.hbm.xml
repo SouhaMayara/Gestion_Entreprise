@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.Article" table="article" catalog="app">
+		<!-- Définition de la clé primaire de la table article-->
+		<id name="idArticle" type="java.lang.Integer">
+			<column name="idArticle" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table article-->
+		<property name="reference" type="java.lang.Integer">
+			<column name="reference"  />
+		</property>
+
+		<property name="libelle" type="string">
+			<column name="libelle" length="30" />
+		</property>
+		
+	    <property name="prixU" type="java.lang.Integer">
+			<column name="prixU"  />
+		</property>
+		
+	
+</class>
+</hibernate-mapping>

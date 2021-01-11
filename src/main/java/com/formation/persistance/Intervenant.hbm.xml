@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.Intervenant" table="intervenant" catalog="suivi">
+		<!-- Définition de la clé primaire de la table ville-->
+		<id name="id_i" type="java.lang.Integer">
+			<column name="id_i" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table -->
+		<property name="nom" type="string">
+			<column name="nom" length="10"  />
+		</property>
+	
+
+	<property name="prenom" type="string">
+			<column name="prenom" length="10"  />
+		</property>
+		
+		<property name="tel" type="java.lang.Integer">
+			<column name="tel"  />
+		</property>
+	
+
+	<property name="mail" type="string">
+			<column name="mail" length="20"  />
+		</property>
+	
+        
+		
+		<!--Définition de la clé étrangère "id_c" 
+		<many-to-one class="com.formation.persistance.ChefProjet" fetch="select"
+			name="chefp">
+			<column name="id_c" />
+		</many-to-one>-->
+
+       
+
+</class>
+</hibernate-mapping>

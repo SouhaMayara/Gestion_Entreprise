@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Liste Facture</title>
+</h:head>
+<h:body>
+ <p:growl id="growl"  sticky="true" />  
+<h:form id="f1" >
+
+				  <p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Action" />
+						</f:facet>
+					<p:commandButton value="Ajouter" update=":f1:f2:idDialogAjout"
+					 oncomplete="PF('dlgAjout').show();"
+					 icon="ui-icon-extlink"/>
+     		    </p:column>	
+   
+   
+	
+	
+	
+		<p:dataTable var="p" 
+					value="#{factureBean.factures}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					
+					<p:column width="30%">
+						<f:facet name="header">
+							<h:outputLabel value="IdFacture" />
+						</f:facet>
+						<h:outputText value=" #{p.idFacture}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Montant" />
+						</f:facet>
+					<h:outputText value=" #{p.montant}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Action" />
+						</f:facet>
+				<p:commandButton value="modifier"  actionListener="#{factureBean.recupererFacture(p)}" onclick="self.location.href='modifFacture.xhtml'"
+					oncomplete="PF('dlg').show();" update=":f1"
+					 icon="ui-icon-extlink"   />
+     				
+     				<p:commandButton value="supprimer"  actionListener="#{factureBean.supprimerFacture(p)}" 
+     				update=":f1"/>
+     				
+     				
+   </p:column>				
+	</p:dataTable>
+	
+	<h:form id="f2">
+	
+    
+    <p:dialog id="idDialogAjout" header="ajout" widgetVar="dlgAjout" modal="true">
+        <h:panelGrid columns="2" cellpadding="5">
+            
+            
+            <h:outputLabel  value="Montant" />
+            <p:inputText   value="#{factureBean.montant}" />
+ 
+           
+        <f:facet name="footer">
+                <p:commandButton value="valider" actionListener="#{factureBean.ajouterF()}"
+                                update=":f1,:growl"/>
+            </f:facet>  
+        
+        </h:panelGrid>
+    </p:dialog>
+	
+	</h:form>
+		
+</h:form>	
+
+</h:body>
+</html>

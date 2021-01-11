@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.LigneFacture" table="lignefacture" catalog="app">
+		<!-- Définition de la clé primaire de la table Lignefacture-->
+		<id name="idLigneFacture" type="java.lang.Integer">
+			<column name="idLigneFacture" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table facture-->
+		<property name="qte" type="java.lang.Integer">
+			<column name="qte"  />
+		</property>
+	<!-- Définition de la clé étrangère "idarticle" dans la table ligne facture -->
+		<many-to-one class="com.formation.persistance.Article" fetch="select"
+			name="article">
+			<column name="idArticle" />
+		</many-to-one>
+
+        <!-- Définition de la clé étrangère "idfacture" dans la table ligne facture -->
+		<many-to-one class="com.formation.persistance.Facture" fetch="select"
+			name="facture">
+			<column name="idFacture" />
+		</many-to-one>
+	
+	
+</class>
+</hibernate-mapping>

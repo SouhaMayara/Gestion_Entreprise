@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Modifier Facture</title>
+</h:head>
+<h:body> 
+ <p:growl id="growl"  sticky="true" /> 
+
+<h:form id="f2">
+
+<h:panelGrid columns="2" cellpadding="5" >
+        <p:outputLabel value="Montant: " />
+        <p:inputMask id="date" value="#{factureBean.montant}" mask=""/>
+ 	    <p:commandButton value="valider" actionListener="#{factureBean.modifFacture()}"
+                                update=":f2"/>		
+    </h:panelGrid>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+				   <p:column>
+				   <f:facet name="header">
+		    	   <h:outputLabel value="Action" />
+			       </f:facet>
+				   <p:commandButton value="Ajouter" update=":f2:idDialogAjout"
+				   oncomplete="PF('dlgAjout').show();" 
+				   icon="ui-icon-extlink"/>
+     		       </p:column>	
+     		    
+<p:dataTable id="tab" var="p" 
+					value="#{lignefactureBean.rechercheparidFacture(factureBean.idFacture)}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="30%">
+						<f:facet name="header">
+							<h:outputLabel value="idLigneFacture" />
+						</f:facet>
+						<h:outputText value=" #{p.idLigneFacture}" />
+					</p:column>				
+					
+					<p:column >
+						<f:facet name="header">
+							<h:outputLabel value="Qte" />
+						</f:facet>
+						<h:outputText value=" #{p.qte}" />
+					</p:column>				
+					
+					
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Facture" />
+						</f:facet>
+					<h:outputText value="#{p.facture.idFacture}"></h:outputText>
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Article" />
+						</f:facet>
+					<h:outputText value="#{p.article.idArticle}"></h:outputText>
+					</p:column>
+		
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Action" />
+						</f:facet>
+				<p:commandButton value="modifier"  actionListener="#{lignefactureBean.recupererLigneFacture(p)}"
+					oncomplete="PF('dlg').show();"  update=":f2,:growl"
+					 icon="ui-icon-extlink"/>
+     				
+     				<p:commandButton value="supprimer"  actionListener="#{lignefactureBean.supprimerLigneFacture(p)}" 
+     				 update=":f2,:growl"/>  				
+   </p:column>				
+	</p:dataTable>
+   
+   
+  
+   
+   
+<p:dialog id="idDialogAjout" header="ajout" widgetVar="dlgAjout" modal="true">
+        <h:panelGrid columns="2" cellpadding="5">
+            
+             
+            <h:outputLabel  value="Qte :" />
+            <p:inputText   value="#{lignefactureBean.qte}" />
+            
+            
+            <p:outputLabel value="Facture: " />
+								<p:selectOneMenu value="#{lignefactureBean.idFacture}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{lignefactureBean.factures}" var="f"
+													itemLabel="#{f.montant}" itemValue="#{f.idFacture}" />
+											</p:selectOneMenu> 
+ 
+            <p:outputLabel value="Article : " />
+								<p:selectOneMenu value="#{lignefactureBean.idArticle}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{lignefactureBean.articles}" var="a"
+													itemLabel="#{a.reference}" itemValue="#{a.idArticle}" />
+											</p:selectOneMenu>
+                   
+        <f:facet name="footer">
+                <p:commandButton value="valider" actionListener="#{lignefactureBean.ajouterLigneFacture()}"
+                            update=":f2:tab"  oncomplete="PF('dlg').hide();" />
+            </f:facet>  
+        
+        </h:panelGrid>
+    </p:dialog>
+    
+    
+    
+    <p:dialog id="idDialog"  header="modif" widgetVar="dlg" modal="true">
+        <h:panelGrid columns="2" cellpadding="5">
+            
+              <h:outputLabel  value="Qte :" />
+            <p:inputText   value="#{lignefactureBean.qte}" />
+ 
+           
+           
+            
+            <p:outputLabel value="Article : " />
+								<p:selectOneMenu value="#{lignefactureBean.idArticle}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{lignefactureBean.articles}" var="a"
+													itemLabel="#{a.reference}" itemValue="#{a.idArticle}" />
+											</p:selectOneMenu>
+            
+                   
+        <f:facet name="footer">
+                <p:commandButton value="valider" actionListener="#{lignefactureBean.modifLigneFacture}"
+                                update=":f2:tab"  oncomplete="PF('dlg').hide();"/>
+            </f:facet>  
+        
+        </h:panelGrid>
+    </p:dialog>
+ 
+
+	</h:form>	
+</h:body>
+</html>

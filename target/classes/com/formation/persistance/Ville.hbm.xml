@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.Ville" table="ville" catalog="app">
+		<!-- Définition de la clé primaire de la table ville-->
+		<id name="idVille" type="java.lang.Integer">
+			<column name="idVille" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table ville -->
+		<property name="nomVille" type="string">
+			<column name="nomVille" length="30" />
+		</property>
+
+		<property name="codePostale" type="java.lang.Integer">
+			<column name="codePostale" />
+		</property>
+
+</class>
+</hibernate-mapping>

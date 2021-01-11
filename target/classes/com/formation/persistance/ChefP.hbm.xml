@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.ChefP" table="chefp" catalog="suivi">
+		<!-- Définition de la clé primaire de la table chefp-->
+		<id name="id_c" type="java.lang.Integer">
+			<column name="id_c" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table chefp-->
+		<property name="nom" type="string">
+			<column name="nom" length="10"  />
+		</property>
+	
+
+	<property name="prenom" type="string">
+			<column name="prenom" length="10"  />
+		</property>
+		
+		<property name="tel" type="java.lang.Integer">
+			<column name="tel"  />
+		</property>
+	
+
+	<property name="mail" type="string">
+			<column name="mail" length="20"  />
+		</property>
+	
+        
+	
+</class>
+</hibernate-mapping>

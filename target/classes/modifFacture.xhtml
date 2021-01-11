@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+  
+<h:head>
+<style type="text/css">
+@import url(styles.css); /* @import comes first */
+</style>
+
+	<title>Modifier Facture</title>
+</h:head>
+<h:body> 
+ <p:growl id="growl"  sticky="true" /> 
+ <h:form id="f">Modifier Facture</h:form>
+
+
+<h:form id="f2">
+
+
+<p:dataTable var="p" 
+					value="#{factureBean}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Facture" />
+						</f:facet>
+					<h:outputText value="#{factureBean.idFacture}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Montant" />
+						</f:facet>
+					<h:inputText value="#{factureBean.montant}"></h:inputText>
+					</p:column>
+					<p:column>
+					<p:commandButton styleClass="smallButton" value="Retour"  actionListener="#{factureBean.modifFacture()}"
+                                update=":f2" icon="icon">
+                     
+                                </p:commandButton>
+                      
+
+                                
+                    </p:column>
+                          <img src="App0/src/main/webapps/images/retour.png" />
+
+                    
+                    	
+</p:dataTable>
+
+
+				   <p:column>
+				   <f:facet name="header">
+		    	   <h:outputLabel value="Action" />
+			       </f:facet>
+				   <p:commandButton styleClass="smallButton" value="Ajouter" update=":f3:idDialogAjout"
+				   oncomplete="PF('dlgAjout').show();" 
+				   icon="ui-icon-extlink"/>
+     		       </p:column>	
+     		    
+<p:dataTable id="tab" var="p" 
+					value="#{factureBean.rechercheparidFacture(factureBean.idFacture)}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="30%">
+						<f:facet name="header">
+							<h:outputLabel value="idLigneFacture" />
+						</f:facet>
+						<h:outputText value=" #{p.idLigneFacture}" />
+					</p:column>				
+					
+					<p:column >
+						<f:facet name="header">
+							<h:outputLabel value="Qte" />
+						</f:facet>
+						<h:outputText value=" #{p.qte}" />
+					</p:column>				
+					
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Reference Article" />
+						</f:facet>
+					<h:outputText value="#{articleBean.rechercheparid(p.article.idArticle).getReference()s}"></h:outputText>
+					</p:column>
+		<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Libelle Article" />
+						</f:facet>
+					<h:outputText value="#{articleBean.rechercheparid(p.article.idArticle).getLibelle()}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Action" />
+						</f:facet>
+				<p:commandButton styleClass="smallButton" value="modifier"  actionListener="#{factureBean.recupererLigneFacture(p)}"
+					oncomplete="PF('dlg').show();"  update=":f2,:growl"
+					 icon="ui-icon-extlink"/>
+     				
+     				<p:commandButton styleClass="smallButton" value="supprimer"  actionListener="#{factureBean.supprimerLigneFacture(p)}" 
+     				 update=":f2:tab,:growl"/>  				
+   </p:column>				
+	</p:dataTable>
+   
+   
+  
+   
+   
+
+    
+    
+    
+    <p:dialog id="idDialog"  header="modif" widgetVar="dlg" modal="true">
+        <h:panelGrid columns="2" cellpadding="5">
+            
+              <h:outputLabel  value="Qte :" />
+            <p:inputText   value="#{factureBean.qte}" />
+ 
+           
+           
+            
+            <p:outputLabel value="Article : " />
+								<p:selectOneMenu value="#{factureBean.idArticle}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{lignefactureBean.articles}" var="a"
+													itemLabel="#{a.reference}" itemValue="#{a.idArticle}" />
+											</p:selectOneMenu>
+            
+                   
+        <f:facet name="footer">
+                <p:commandButton styleClass="smallButton" value="valider" actionListener="#{factureBean.modifLigneFacture}"
+                                update=":f2:tab,:growl"  oncomplete="PF('dlg').hide();" />
+            </f:facet>  
+        
+        </h:panelGrid>
+    </p:dialog>
+ 
+
+	</h:form>	
+
+<h:form id="f3">
+<p:dialog id="idDialogAjout" header="ajout" widgetVar="dlgAjout" modal="true">
+        <h:panelGrid columns="2" cellpadding="5">
+            
+             
+            <h:outputLabel  value="Qte :" />
+            <p:inputText   value="#{factureBean.qte}" />
+            <p:outputLabel value="Article : " />
+								<p:selectOneMenu value="#{factureBean.idArticle}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{factureBean.articles}" var="a"
+													itemLabel="#{a.reference}" itemValue="#{a.idArticle}" />
+											</p:selectOneMenu>
+                   
+        <f:facet name="footer">
+                <p:commandButton styleClass="smallButton" value="valider" actionListener="#{factureBean.ajouterLigneFacture()}"
+                            update=":f2:tab,:growl"  oncomplete="PF('dlgAjout').hide();" />
+            </f:facet>  
+        
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+</h:body>
+</html>

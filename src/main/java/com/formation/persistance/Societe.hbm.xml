@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.formation.persistance.Societe" table="societe" catalog="app">
+		<!-- Définition de la clé primaire de la table societe-->
+		<id name="idSociete" type="java.lang.Integer">
+			<column name="idSociete" />
+			<generator class="increment" />
+		</id>
+	<!-- Définition des propriétés de la table societe-->
+		<property name="raisonSocial" type="string">
+			<column name="raisonSocial" length="30" />
+		</property>
+
+		<property name="adresse" type="string">
+			<column name="adresse" length="30" />
+		</property>
+		
+		<!-- Définition de la clé étrangère "idville" dans la table societe -->
+		<many-to-one class="com.formation.persistance.Ville" fetch="select"
+			name="ville">
+			<column name="idVille" />
+		</many-to-one>
+		
+		
+
+</class>
+</hibernate-mapping>

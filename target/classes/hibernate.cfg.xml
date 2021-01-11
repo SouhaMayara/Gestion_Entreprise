@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	    <!-- propriété de connexion local -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/app</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password"></property>
+		                  <!-- dialect pour MySQL -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		                  <!-- Déclaration de mapping -->
+		                  
+		<mapping resource="com/formation/persistance/Ville.hbm.xml"/>
+		<mapping resource="com/formation/persistance/Personne.hbm.xml"/>
+		<mapping resource="com/formation/persistance/Societe.hbm.xml"/>
+		<mapping resource="com/formation/persistance/ChefP.hbm.xml"/>
+		<mapping resource="com/formation/persistance/Intervenant.hbm.xml"/>
+		
+		
+	</session-factory>
+</hibernate-configuration>
